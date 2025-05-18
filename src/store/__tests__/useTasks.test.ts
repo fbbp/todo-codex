@@ -88,6 +88,21 @@ describe('useTasks store', () => {
     expect(useTasks.getState().tasks[0].title).toBe('loaded');
   });
 
+
+  it('updates a task', async () => {
+    const draft = {
+      title: 'update me',
+      dueAt: null,
+      durationMin: null,
+      categoryId: null,
+      checklist: [],
+      repeatRule: null,
+    };
+    const id = await useTasks.getState().add(draft);
+    await useTasks.getState().update(id, { title: 'updated' });
+    expect(useTasks.getState().tasks[0].title).toBe('updated');
+  });
+    
   it('completes recurring task and creates next one', async () => {
     const now = Date.UTC(2024, 0, 1);
     const draft = {
