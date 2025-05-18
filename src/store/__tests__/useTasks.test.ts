@@ -29,7 +29,7 @@ describe('useTasks store', () => {
       permission: 'granted',
       requestPermission: vi.fn(() => Promise.resolve('granted')),
     };
-    Object.defineProperty(globalThis, 'navigator', { value: {}, configurable: true });
+    Object.defineProperty(globalThis, 'navigator', { value: {},      writable: true, configurable: true });
     useTasks.setState({ tasks: [] });
   });
 
