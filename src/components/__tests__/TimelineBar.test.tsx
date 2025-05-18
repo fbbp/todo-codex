@@ -5,9 +5,9 @@ import { TimelineBar } from '../TimelineBar';
 describe('TimelineBar', () => {
   it('positions current time indicator', () => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2025-01-01T12:00:00Z'));
+    vi.setSystemTime(new Date('2025-01-01T21:00:00'));
     const html = renderToString(<TimelineBar />);
-    expect(html).toContain('left:50%');
+    expect(html).toContain('left:87.5%');
     vi.useRealTimers();
   });
 });

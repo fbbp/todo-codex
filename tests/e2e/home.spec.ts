@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 test('home page displays content', async ({ page }) => {
   await page.goto('/');

@@ -71,9 +71,9 @@ export const useTasks = create<TaskStore>((set, get) => ({
       tasks: get().tasks.map((t) => (t.id === id ? updated : t)),
     });
     scheduleReminder(updated);
-  }
+  },
 
-  async complete(id) {
+  async complete(id: string) {
     const current = get().tasks.find((t) => t.id === id);
     if (!current) return;
     const now = Date.now();
