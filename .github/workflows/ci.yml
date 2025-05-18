@@ -24,8 +24,11 @@ jobs:
         with:
           version: 9
       - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps
       - run: pnpm run lint
       - run: pnpm run test
+      - run: pnpm run test:e2e
+      - run: pnpm run test:a11y
       - run: pnpm run build
       
       # Deploy to Pages
