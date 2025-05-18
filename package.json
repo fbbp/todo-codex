@@ -13,6 +13,8 @@
     "test:ci": "vitest run --passWithNoTests",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test tests/e2e",
+    "test:a11y": "playwright test tests/a11y",
     "type-check": "tsc --noEmit",
     "prepare": "husky"
   },
@@ -44,6 +46,8 @@
     "vite": "^5.3.4",
     "vite-plugin-pwa": "^0.20.5",
     "vitest": "^2.0.0",
+    "@playwright/test": "^1.40.0",
+    "@axe-core/playwright": "^4.7.2",
     "workbox-window": "^7.1.0"
   },
   "simple-git-hooks": {
