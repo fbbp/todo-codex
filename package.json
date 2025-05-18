@@ -51,6 +51,6 @@
     "workbox-window": "^7.1.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint"
+    "pre-commit": "pnpm lint && pnpm test"
   }
 }
