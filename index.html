@@ -8,7 +8,10 @@
         const redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
         if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
+          const url = new URL(redirect);
+          // ベースパスを取り除いて正しいルートパスを取得
+          const path = url.pathname.replace('/todo-codex', '') || '/';
+          history.replaceState(null, null, '/todo-codex' + path + url.search + url.hash);
         }
       })();
     </script>
