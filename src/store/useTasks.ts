@@ -17,8 +17,21 @@ export interface TaskStore {
 }
 
 function scheduleReminder(task: Task) {
-  void task;
-  // TODO: implement Service Worker notification
+  if (!task.dueAt || !('serviceWorker' in navigator)) {
+    return;
+  }
+
+  if (Notification.permission === 'default') {
+    void Notification.requestPermission();
+  }
+
+  navigator.serviceWorker.ready
+    .then((reg) => {
+      reg.active?.postMessage({ type: 'SCHEDULE', task });
+    })
+    .catch(() => {
+      // noop
+    });
 }
 
 export const useTasks = create<TaskStore>((set, get) => ({

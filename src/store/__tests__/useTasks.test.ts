@@ -19,6 +19,10 @@ vi.mock('../../db', () => ({
 describe('useTasks store', () => {
   beforeEach(() => {
     tasks.length = 0;
+    (global as any).Notification = {
+      permission: 'granted',
+      requestPermission: vi.fn(() => Promise.resolve('granted')),
+    };
   });
 
   it('adds a task', async () => {
@@ -34,6 +38,28 @@ describe('useTasks store', () => {
     expect(id).toBeDefined();
     expect(useTasks.getState().tasks).toHaveLength(1);
     expect(useTasks.getState().tasks[0].title).toBe('test');
+  });
+
+  it('schedules reminder via service worker', async () => {
+    const postMessage = vi.fn();
+    const ready = Promise.resolve({ active: { postMessage } });
+    Object.defineProperty(global.navigator, 'serviceWorker', {
+      value: { ready },
+      configurable: true,
+    });
+
+    const draft = {
+      title: 'due task',
+      dueAt: Date.now() + 1000,
+      durationMin: null,
+      categoryId: null,
+      checklist: [],
+      repeatRule: null,
+    };
+
+    await useTasks.getState().add(draft);
+    await ready;
+    expect(postMessage).toHaveBeenCalledWith({ type: 'SCHEDULE', task: expect.any(Object) });
   });
 
   it('loads tasks', async () => {
