@@ -16,6 +16,7 @@ export interface TaskStore {
   load: () => Promise<void>;
   add: (draft: TaskDraft) => Promise<string>;
   update: (id: string, patch: Partial<TaskDraft>) => Promise<void>;
+  complete: (id: string) => Promise<void>;
 }
 
 function scheduleReminder(task: Task) {
@@ -77,7 +78,7 @@ export const useTasks = create<TaskStore>((set, get) => ({
     const current = get().tasks.find((t) => t.id === id);
     if (!current) return;
     const now = Date.now();
-    const done = { ...current, status: 'done', updatedAt: now };
+    const done = { ...current, status: 'done' as Task['status'], updatedAt: now };
     await db.tasks.put(done);
     set({ tasks: get().tasks.map((t) => (t.id === id ? done : t)) });
     if (current.repeatRule && current.dueAt) {
