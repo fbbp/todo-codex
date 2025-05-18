@@ -1,6 +1,8 @@
 /// <reference lib="webworker" />
 
-self.addEventListener('message', (e) => {
+const sw = self as unknown as ServiceWorkerGlobalScope;
+
+sw.addEventListener('message', (e) => {
   if (e.data?.type === 'SCHEDULE') {
     schedule(e.data.task);
   }
@@ -9,16 +11,19 @@ self.addEventListener('message', (e) => {
 function schedule(task: { id: string; title: string; dueAt: number }) {
   const diff = task.dueAt - Date.now();
   setTimeout(() => {
-    self.registration.showNotification(task.title, {
-      body: '期限です',
-      tag: task.id,
-      actions: [{ action: 'snooze', title: '後で' }],
-      data: task,
-    });
+    sw.registration.showNotification(
+      task.title,
+      {
+        body: '期限です',
+        tag: task.id,
+        actions: [{ action: 'snooze', title: '後で' }],
+        data: task,
+      } as NotificationOptions & { actions: { action: string; title: string }[] }
+    );
   }, diff);
 }
 
-self.addEventListener('notificationclick', (event) => {
+sw.addEventListener('notificationclick', (event: NotificationEvent) => {
   const notification = event.notification;
   const task = notification.data;
   if (event.action === 'snooze') {
@@ -26,7 +31,7 @@ self.addEventListener('notificationclick', (event) => {
     schedule({ ...task, dueAt: Date.now() + 5 * 60 * 1000 });
     return;
   }
-  event.waitUntil(clients.openWindow('/'));
+  event.waitUntil(sw.clients.openWindow('/'));
   notification.close();
 });
 

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
 import { TaskCard } from '../components/TaskCard';
 import { TaskForm } from '../components/TaskForm';
 import { useTasks } from '../store/useTasks';
+import { useEffect } from 'react';
 
 export default function AllTasksPage() {
   const tasks = useTasks((s) => s.tasks);

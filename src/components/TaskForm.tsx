@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useTasks } from '../store/useTasks';
 
 export function TaskForm() {
   const add = useTasks((s) => s.add);
   const [title, setTitle] = useState('');
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
     await add({

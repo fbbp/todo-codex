@@ -20,7 +20,7 @@ describe('useTasks store', () => {
   beforeEach(() => {
     tasks.length = 0;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (global as any).Notification = {
+    (globalThis as any).Notification = {
       permission: 'granted',
       requestPermission: vi.fn(() => Promise.resolve('granted')),
     };
@@ -44,7 +44,7 @@ describe('useTasks store', () => {
   it('schedules reminder via service worker', async () => {
     const postMessage = vi.fn();
     const ready = Promise.resolve({ active: { postMessage } });
-    Object.defineProperty(global.navigator, 'serviceWorker', {
+    Object.defineProperty(globalThis.navigator, 'serviceWorker', {
       value: { ready },
       configurable: true,
     });
