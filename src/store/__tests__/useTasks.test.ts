@@ -24,8 +24,11 @@ describe('useTasks store', () => {
       permission: 'granted',
       requestPermission: vi.fn(() => Promise.resolve('granted')),
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (globalThis as any).navigator = {};
+    Object.defineProperty(globalThis, 'navigator', {
+      value: {},
+      writable: true,
+      configurable: true,
+    });
   });
 
   it('adds a task', async () => {
