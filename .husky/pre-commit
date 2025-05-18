@@ -1,1 +1,7 @@
-pnpm test
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Vitestを一回だけ実行（watchモードなし）
+pnpm vitest run
+# または
+pnpm test:ci
