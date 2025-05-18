@@ -14,6 +14,7 @@ export interface TaskStore {
   tasks: Task[];
   load: () => Promise<void>;
   add: (draft: TaskDraft) => Promise<string>;
+  update: (id: string, patch: Partial<TaskDraft>) => Promise<void>;
 }
 
 function scheduleReminder(task: Task) {
@@ -54,5 +55,19 @@ export const useTasks = create<TaskStore>((set, get) => ({
     set({ tasks: [...get().tasks, task] });
     scheduleReminder(task);
     return id;
+  },
+  async update(id, patch) {
+    const current = get().tasks.find((t) => t.id === id);
+    if (!current) return;
+    const updated: Task = {
+      ...current,
+      ...patch,
+      updatedAt: Date.now(),
+    };
+    await db.tasks.put(updated);
+    set({
+      tasks: get().tasks.map((t) => (t.id === id ? updated : t)),
+    });
+    scheduleReminder(updated);
   },
 }));
