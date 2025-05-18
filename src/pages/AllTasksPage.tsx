@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { TaskCard } from '../components/TaskCard';
+import { TaskForm } from '../components/TaskForm';
+import { useTasks } from '../store/useTasks';
 
 export default function AllTasksPage() {
+  const tasks = useTasks((s) => s.tasks);
+  const load = useTasks((s) => s.load);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
   return (
-    <div className="p-4">All Tasks Page</div>
+    <div className="space-y-4">
+      <TaskForm />
+      <div className="space-y-2">
+        {tasks.map((t) => (
+          <TaskCard key={t.id} task={t} />
+        ))}
+      </div>
+    </div>
   );
 }
