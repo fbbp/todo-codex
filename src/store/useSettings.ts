@@ -25,8 +25,16 @@ export const useSettings = create<SettingsStore>((set, get) => ({
     const entries = await db.settings.toArray();
     const loaded: Settings = { ...DEFAULT_SETTINGS };
     for (const { key, value } of entries) {
-      if (key in loaded) {
-        loaded[key as keyof Settings] = value as Settings[keyof Settings];
+      switch (key) {
+        case 'notifyBeforeMin':
+        case 'snoozeMin':
+          loaded[key] = Number(value) as Settings[typeof key];
+          break;
+        case 'theme':
+          loaded.theme = value === 'dark' ? 'dark' : 'light';
+          break;
+        default:
+          break;
       }
     }
     set({ settings: loaded });
