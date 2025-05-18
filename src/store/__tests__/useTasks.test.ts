@@ -19,6 +19,7 @@ vi.mock('../../db', () => ({
 describe('useTasks store', () => {
   beforeEach(() => {
     tasks.length = 0;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).Notification = {
       permission: 'granted',
       requestPermission: vi.fn(() => Promise.resolve('granted')),
