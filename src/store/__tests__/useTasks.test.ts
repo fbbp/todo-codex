@@ -29,10 +29,7 @@ describe('useTasks store', () => {
       permission: 'granted',
       requestPermission: vi.fn(() => Promise.resolve('granted')),
     };
-    Object.defineProperty(globalThis, 'navigator', {
-      value: {},
-      configurable: true,
-    });
+    Object.defineProperty(globalThis, 'navigator', { value: {},      writable: true, configurable: true });
     useTasks.setState({ tasks: [] });
   });
 
@@ -91,6 +88,7 @@ describe('useTasks store', () => {
     expect(useTasks.getState().tasks[0].title).toBe('loaded');
   });
 
+
   it('updates a task', async () => {
     const draft = {
       title: 'update me',
@@ -103,5 +101,22 @@ describe('useTasks store', () => {
     const id = await useTasks.getState().add(draft);
     await useTasks.getState().update(id, { title: 'updated' });
     expect(useTasks.getState().tasks[0].title).toBe('updated');
+  });
+    
+  it('completes recurring task and creates next one', async () => {
+    const now = Date.UTC(2024, 0, 1);
+    const draft = {
+      title: 'recurring',
+      dueAt: now,
+      durationMin: null,
+      categoryId: null,
+      checklist: [],
+      repeatRule: 'FREQ=DAILY;INTERVAL=1',
+    };
+    const id = await useTasks.getState().add(draft);
+    await useTasks.getState().complete(id);
+    expect(useTasks.getState().tasks).toHaveLength(2);
+    const next = useTasks.getState().tasks.find((t) => t.id !== id)!;
+    expect(next.dueAt).toBe(now + 24 * 60 * 60 * 1000);
   });
 });

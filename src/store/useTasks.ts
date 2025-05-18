@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { db, type Task } from '../db';
+import { getNextDueAt } from '../lib/rrule';
 
 export interface TaskDraft {
   title: string;
@@ -56,6 +57,7 @@ export const useTasks = create<TaskStore>((set, get) => ({
     scheduleReminder(task);
     return id;
   },
+
   async update(id, patch) {
     const current = get().tasks.find((t) => t.id === id);
     if (!current) return;
@@ -69,5 +71,28 @@ export const useTasks = create<TaskStore>((set, get) => ({
       tasks: get().tasks.map((t) => (t.id === id ? updated : t)),
     });
     scheduleReminder(updated);
+  }
+
+  async complete(id) {
+    const current = get().tasks.find((t) => t.id === id);
+    if (!current) return;
+    const now = Date.now();
+    const done = { ...current, status: 'done', updatedAt: now };
+    await db.tasks.put(done);
+    set({ tasks: get().tasks.map((t) => (t.id === id ? done : t)) });
+    if (current.repeatRule && current.dueAt) {
+      const nextDue = getNextDueAt(current.repeatRule, current.dueAt);
+      const next: Task = {
+        ...current,
+        id: crypto.randomUUID(),
+        status: 'pending',
+        dueAt: nextDue,
+        createdAt: now,
+        updatedAt: now,
+      };
+      await db.tasks.add(next);
+      set({ tasks: [...get().tasks, next] });
+      scheduleReminder(next);
+    }
   },
 }));
