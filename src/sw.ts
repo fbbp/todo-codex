@@ -8,7 +8,7 @@ const sw = self as unknown as ServiceWorkerGlobalScope;
 
 // precache assets injected by Vite PWA
 precacheAndRoute(self.__WB_MANIFEST);
-å
+
 sw.addEventListener('message', (e) => {
   if (e.data?.type === 'SCHEDULE') {
     schedule(e.data.task);

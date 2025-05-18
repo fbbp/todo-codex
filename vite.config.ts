@@ -13,7 +13,7 @@ export default defineConfig({
       filename: 'sw.ts',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Todo Claude',
+        name: 'Todo Codex',
         short_name: 'Todo',
         description: 'Offline-first task management app',
         theme_color: '#6366F1',
