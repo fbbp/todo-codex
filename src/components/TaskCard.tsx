@@ -1,14 +1,19 @@
-import type { Task } from '../db';
+import type { Task, Category } from '../db';
+import { CategoryBadge } from './CategoryBadge';
 
 interface Props {
   task: Task;
+  category?: Category;
 }
 
-export function TaskCard({ task }: Props) {
+export function TaskCard({ task, category }: Props) {
   return (
     <div className="rounded-2xl p-4 shadow-sm bg-white space-y-2">
       <div className="flex justify-between items-start">
-        <div className="text-xl font-semibold">{task.title}</div>
+        <div className="space-y-1">
+          <div className="text-xl font-semibold">{task.title}</div>
+          {category && <CategoryBadge category={category} />}
+        </div>
         {task.dueAt && (
           <time
             dateTime={new Date(task.dueAt).toISOString()}
