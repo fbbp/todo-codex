@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSettings } from '../store/useSettings';
+import { BackupControls } from '../components/BackupControls';
 
 export default function SettingsPage() {
   const settings = useSettings((s) => s.settings);
@@ -43,6 +44,7 @@ export default function SettingsPage() {
           onChange={(e) => update('snoozeMin', Number(e.target.value))}
         />
       </label>
+      <BackupControls />
     </form>
   );
 }
