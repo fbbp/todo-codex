@@ -1,5 +1,6 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useTasks } from '../store/useTasks';
+import { useCategories } from '../store/useCategories';
 import type { Task } from '../db';
 
 interface Props {
@@ -13,10 +14,19 @@ export function TaskForm({ task, onSaved }: Props) {
   const [due, setDue] = useState(
     task?.dueAt ? new Date(task.dueAt).toISOString().slice(0, 16) : ''
   );
+  const [category, setCategory] = useState(task?.categoryId ?? '');
   const [checklist, setChecklist] = useState(
     task?.checklist ?? []
   );
+  const [repeat, setRepeat] = useState(task?.repeatRule ?? '');
   const [subText, setSubText] = useState('');
+
+  const categories = useCategories((s) => s.categories);
+  const loadCategories = useCategories((s) => s.load);
+
+  useEffect(() => {
+    void loadCategories();
+  }, [loadCategories]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -26,9 +36,9 @@ export function TaskForm({ task, onSaved }: Props) {
       title: trimmed,
       dueAt: due ? new Date(due).getTime() : null,
       durationMin: null,
-      categoryId: null,
+      categoryId: category || null,
       checklist,
-      repeatRule: null,
+      repeatRule: repeat || null,
     } as const;
     if (task) {
       await update(task.id, draft);
@@ -37,6 +47,8 @@ export function TaskForm({ task, onSaved }: Props) {
       setTitle('');
       setDue('');
       setChecklist([]);
+      setCategory('');
+      setRepeat('');
     }
     setSubText('');
     onSaved?.();
@@ -73,6 +85,24 @@ export function TaskForm({ task, onSaved }: Props) {
         type="datetime-local"
         value={due}
         onChange={(e) => setDue(e.target.value)}
+        className="w-full border rounded px-2 py-1"
+      />
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        className="w-full border rounded px-2 py-1"
+      >
+        <option value="">No category</option>
+        {categories.map((c) => (
+          <option key={c.id} value={c.id}>
+            {c.name}
+          </option>
+        ))}
+      </select>
+      <input
+        value={repeat}
+        onChange={(e) => setRepeat(e.target.value)}
+        placeholder="RRULE e.g. FREQ=DAILY;INTERVAL=1"
         className="w-full border rounded px-2 py-1"
       />
       {checklist.length > 0 && (
