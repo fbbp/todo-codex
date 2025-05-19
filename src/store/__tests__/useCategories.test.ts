@@ -62,4 +62,12 @@ describe('useCategories store', () => {
     expect(local[0].id).toBe('2');
     expect(local[1].id).toBe('1');
   });
+
+  it('updates a category', async () => {
+    categories.push({ id: '1', name: 'Old', color: '#000', order: 0 });
+    useCategories.setState({ categories: [...categories] });
+    await useCategories.getState().update('1', { name: 'New' });
+    expect(categories[0].name).toBe('New');
+    expect(useCategories.getState().categories[0].name).toBe('New');
+  });
 });

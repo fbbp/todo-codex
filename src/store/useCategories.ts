@@ -10,6 +10,7 @@ export interface CategoriesStore {
   categories: Category[];
   load: () => Promise<void>;
   add: (draft: CategoryDraft) => Promise<string>;
+  update: (id: string, patch: Partial<CategoryDraft>) => Promise<void>;
   reorder: (ids: string[]) => Promise<void>;
 }
 
@@ -26,6 +27,15 @@ export const useCategories = create<CategoriesStore>((set, get) => ({
     await db.categories.add(category);
     set({ categories: [...get().categories, category] });
     return id;
+  },
+  async update(id, patch) {
+    const current = get().categories.find((c) => c.id === id);
+    if (!current) return;
+    const updated: Category = { ...current, ...patch };
+    await db.categories.put(updated);
+    set({
+      categories: get().categories.map((c) => (c.id === id ? updated : c)),
+    });
   },
   async reorder(ids) {
     const updates: Category[] = [];
