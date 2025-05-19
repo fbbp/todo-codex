@@ -20,7 +20,16 @@ importers:
       react-router-dom:
         specifier: ^6.26.1
         version: 6.30.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      workbox-core:
+        specifier: ^7.3.0
+        version: 7.3.0
       workbox-precaching:
+        specifier: ^7.3.0
+        version: 7.3.0
+      workbox-routing:
+        specifier: ^7.3.0
+        version: 7.3.0
+      workbox-strategies:
         specifier: ^7.3.0
         version: 7.3.0
       zustand:
