@@ -3,8 +3,8 @@ import { renderToString } from 'react-dom/server';
 import { TaskForm } from '../TaskForm';
 
 describe('TaskForm', () => {
-  it('renders input field', () => {
+  it('renders due date field', () => {
     const html = renderToString(<TaskForm />);
-    expect(html).toContain('placeholder="Add task"');
+    expect(html).toContain('datetime-local');
   });
 });
