@@ -1,13 +1,25 @@
 /// <reference lib="webworker" />
 
 import { precacheAndRoute } from 'workbox-precaching';
+import { clientsClaim } from 'workbox-core';
+import { registerRoute } from 'workbox-routing';
+import { NetworkFirst } from 'workbox-strategies';
 
 declare let self: ServiceWorkerGlobalScope & { __WB_MANIFEST: unknown };
 
 const sw = self as unknown as ServiceWorkerGlobalScope;
 
+sw.skipWaiting();
+clientsClaim();
+
 // precache assets injected by Vite PWA
 precacheAndRoute(self.__WB_MANIFEST);
+
+// offline fallback for navigation requests
+registerRoute(
+  ({ request }) => request.mode === 'navigate',
+  new NetworkFirst({ cacheName: 'pages' }),
+);
 
 sw.addEventListener('message', (e) => {
   if (e.data?.type === 'SCHEDULE') {
