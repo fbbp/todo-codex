@@ -27,7 +27,7 @@ sw.addEventListener('message', (e) => {
   }
 });
 
-function schedule(task: { id: string; title: string; dueAt: number }) {
+function schedule(task: { id: string; title: string; dueAt: number; snoozeMin: number }) {
   const diff = task.dueAt - Date.now();
   setTimeout(() => {
     sw.registration.showNotification(
@@ -47,7 +47,7 @@ sw.addEventListener('notificationclick', (event: NotificationEvent) => {
   const task = notification.data;
   if (event.action === 'snooze') {
     notification.close();
-    schedule({ ...task, dueAt: Date.now() + 5 * 60 * 1000 });
+    schedule({ ...task, dueAt: Date.now() + task.snoozeMin * 60 * 1000 });
     return;
   }
   event.waitUntil(sw.clients.openWindow('/'));

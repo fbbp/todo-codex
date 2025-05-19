@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { db, type Task } from '../db';
 import { getNextDueAt } from '../lib/rrule';
+import { useSettings } from './useSettings';
 
 export interface TaskDraft {
   title: string;
@@ -24,13 +25,19 @@ function scheduleReminder(task: Task) {
     return;
   }
 
+  const { notifyBeforeMin, snoozeMin } = useSettings.getState().settings;
+  const remindAt = task.dueAt - notifyBeforeMin * 60 * 1000;
+
   if (Notification.permission === 'default') {
     void Notification.requestPermission();
   }
 
   navigator.serviceWorker.ready
     .then((reg) => {
-      reg.active?.postMessage({ type: 'SCHEDULE', task });
+      reg.active?.postMessage({
+        type: 'SCHEDULE',
+        task: { id: task.id, title: task.title, dueAt: remindAt, snoozeMin },
+      });
     })
     .catch(() => {
       // noop
