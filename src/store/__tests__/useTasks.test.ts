@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useTasks } from '../useTasks';
+import { useSettings } from '../useSettings';
 import type { Task } from '../../db';
 
 const tasks: Task[] = [];
@@ -56,6 +57,10 @@ describe('useTasks store', () => {
       configurable: true,
     });
 
+    useSettings.setState({
+      settings: { notifyBeforeMin: 1, theme: 'light', snoozeMin: 5 },
+    });
+
     const draft = {
       title: 'due task',
       dueAt: Date.now() + 1000,
@@ -67,7 +72,10 @@ describe('useTasks store', () => {
 
     await useTasks.getState().add(draft);
     await ready;
-    expect(postMessage).toHaveBeenCalledWith({ type: 'SCHEDULE', task: expect.any(Object) });
+    const sent = postMessage.mock.calls[0][0];
+    expect(sent.type).toBe('SCHEDULE');
+    expect(sent.task.dueAt).toBeCloseTo(draft.dueAt - 60 * 1000, -2);
+    expect(sent.task.snoozeMin).toBe(5);
   });
 
   it('loads tasks', async () => {
