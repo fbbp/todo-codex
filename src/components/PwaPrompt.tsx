@@ -31,7 +31,7 @@ export default function PwaPrompt() {
   return (
     <>
       {(offlineReady || needRefresh) && (
-        <div className="fixed bottom-4 right-4 bg-white shadow p-2 flex gap-2">
+        <div className="fixed bottom-4 right-4 bg-white dark:bg-slate-800 shadow p-2 flex gap-2">
           {offlineReady && <span>Offline ready</span>}
           {needRefresh && (
             <button type="button" onClick={() => updateServiceWorker(true)} className="underline">
