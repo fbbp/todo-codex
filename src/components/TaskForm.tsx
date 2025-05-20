@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useTasks } from '../store/useTasks';
 import { useCategories } from '../store/useCategories';
+import { textColor } from '../lib/color';
 import type { Task } from '../db';
 
 interface Props {
@@ -94,7 +95,14 @@ export function TaskForm({ task, onSaved }: Props) {
       >
         <option value="">No category</option>
         {categories.map((c) => (
-          <option key={c.id} value={c.id}>
+          <option
+            key={c.id}
+            value={c.id}
+            style={{
+              backgroundColor: c.color,
+              color: textColor(c.color) === 'text-white' ? '#fff' : '#000',
+            }}
+          >
             {c.name}
           </option>
         ))}

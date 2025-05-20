@@ -18,6 +18,11 @@ vi.mock('../../db', () => ({
         if (idx >= 0) tasks[idx] = task;
         return Promise.resolve();
       },
+      delete: (id: string) => {
+        const idx = tasks.findIndex((t) => t.id === id);
+        if (idx >= 0) tasks.splice(idx, 1);
+        return Promise.resolve();
+      },
     },
   },
 }));
@@ -126,5 +131,18 @@ describe('useTasks store', () => {
     expect(useTasks.getState().tasks).toHaveLength(2);
     const next = useTasks.getState().tasks.find((t) => t.id !== id)!;
     expect(next.dueAt).toBe(now + 24 * 60 * 60 * 1000);
+  });
+
+  it('removes a task', async () => {
+    const id = await useTasks.getState().add({
+      title: 'delete me',
+      dueAt: null,
+      durationMin: null,
+      categoryId: null,
+      checklist: [],
+      repeatRule: null,
+    });
+    await useTasks.getState().remove(id);
+    expect(useTasks.getState().tasks).toHaveLength(0);
   });
 });
