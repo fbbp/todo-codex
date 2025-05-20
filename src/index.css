@@ -10,5 +10,15 @@
     --danger: #EF4444;
     --bg-light: #F8FAFC;
     --bg-dark: #1E293B;
+    --bg: var(--bg-light);
+    --text: #0f172a;
+  }
+  .dark {
+    --bg: var(--bg-dark);
+    --text: #F8FAFC;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
   }
 }

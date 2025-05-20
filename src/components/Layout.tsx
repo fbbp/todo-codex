@@ -4,7 +4,7 @@ import PwaPrompt from './PwaPrompt';
 
 export default function Layout() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <Navbar />
       <main className="p-4">
         <Outlet />

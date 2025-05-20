@@ -20,7 +20,7 @@ export default function TaskModal() {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="bg-white p-4 rounded-2xl space-y-2 w-80">
+      <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl space-y-2 w-80">
         <TaskForm task={task} onSaved={() => navigate(-1)} />
         <div className="flex justify-end">
           <button type="button" onClick={() => navigate(-1)} className="px-3 py-1 rounded">

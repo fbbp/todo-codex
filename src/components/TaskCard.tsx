@@ -8,7 +8,7 @@ interface Props {
 
 export function TaskCard({ task, category }: Props) {
   return (
-    <div className="rounded-2xl p-4 shadow-sm bg-white space-y-2">
+    <div className="rounded-2xl p-4 shadow-sm bg-white dark:bg-slate-800 space-y-2">
       <div className="flex justify-between items-start">
         <div className="space-y-1">
           <div className="text-xl font-semibold">{task.title}</div>
