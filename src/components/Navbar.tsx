@@ -7,14 +7,22 @@ export function Navbar() {
 
   return (
     <header className="flex items-center justify-between p-4 shadow">
-      <button type="button" onClick={toggle} className="md:hidden">
+      <button type="button" onClick={toggle} className="md:hidden focus-ring">
         Menu
       </button>
       <nav className={`${open ? 'block' : 'hidden'} md:flex gap-4`}>
-        <Link to="/">Home</Link>
-        <Link to="/all">All</Link>
-        <Link to="/categories">Categories</Link>
-        <Link to="/settings">Settings</Link>
+        <Link to="/" className="focus-ring">
+          Home
+        </Link>
+        <Link to="/all" className="focus-ring">
+          All
+        </Link>
+        <Link to="/categories" className="focus-ring">
+          Categories
+        </Link>
+        <Link to="/settings" className="focus-ring">
+          Settings
+        </Link>
       </nav>
     </header>
   );

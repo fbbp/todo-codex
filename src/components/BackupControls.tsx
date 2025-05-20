@@ -36,7 +36,7 @@ export function BackupControls() {
       <button
         type="button"
         onClick={handleExport}
-        className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white"
+        className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white focus-ring"
       >
         Export JSON
       </button>
@@ -46,7 +46,7 @@ export function BackupControls() {
           type="file"
           accept="application/json"
           onChange={handleImport}
-          className="block"
+          className="block focus-ring"
         />
       </label>
     </div>

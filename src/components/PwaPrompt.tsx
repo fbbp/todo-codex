@@ -34,7 +34,7 @@ export default function PwaPrompt() {
         <div className="fixed bottom-4 right-4 bg-white dark:bg-slate-800 shadow p-2 flex gap-2">
           {offlineReady && <span>Offline ready</span>}
           {needRefresh && (
-            <button type="button" onClick={() => updateServiceWorker(true)} className="underline">
+            <button type="button" onClick={() => updateServiceWorker(true)} className="underline focus-ring">
               Update
             </button>
           )}
@@ -43,7 +43,7 @@ export default function PwaPrompt() {
       {showInstall && (
         <button
           type="button"
-          className="fixed bottom-4 left-4 bg-primary text-white px-3 py-1 rounded"
+          className="fixed bottom-4 left-4 bg-primary text-white px-3 py-1 rounded focus-ring"
           onClick={install}
         >
           Install App
