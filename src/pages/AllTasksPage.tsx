@@ -26,7 +26,7 @@ export default function AllTasksPage() {
           onClick={() => setFilter(null)}
           className={`px-2 py-1 rounded-full text-sm ${filter === null ? 'bg-primary text-white' : 'bg-slate-200'}`}
         >
-          All
+          すべて
         </button>
         {categories.map((c) => (
           <CategoryBadge

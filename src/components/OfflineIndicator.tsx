@@ -18,7 +18,7 @@ export default function OfflineIndicator() {
 
   return (
     <div className="fixed top-0 left-0 right-0 bg-danger text-white text-center py-1 z-50">
-      Offline
+      オフライン
     </div>
   );
 }

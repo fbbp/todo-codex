@@ -10,7 +10,7 @@ describe('Navbar', () => {
         <Navbar />
       </MemoryRouter>,
     );
-    expect(html).toContain('Home');
-    expect(html).toContain('Categories');
+    expect(html).toContain('ホーム');
+    expect(html).toContain('カテゴリ');
   });
 });

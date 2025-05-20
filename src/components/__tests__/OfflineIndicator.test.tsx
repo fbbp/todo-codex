@@ -24,12 +24,12 @@ describe('OfflineIndicator', () => {
   it('renders banner when offline', () => {
     setOnline(false);
     const html = renderToString(<OfflineIndicator />);
-    expect(html).toContain('Offline');
+    expect(html).toContain('オフライン');
   });
 
   it('hides when online', () => {
     setOnline(true);
     const html = renderToString(<OfflineIndicator />);
-    expect(html).not.toContain('Offline');
+    expect(html).not.toContain('オフライン');
   });
 });

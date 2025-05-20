@@ -38,10 +38,10 @@ export function BackupControls() {
         onClick={handleExport}
         className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white focus-ring"
       >
-        Export JSON
+        JSONをエクスポート
       </button>
       <label className="block space-y-1">
-        <span>Import JSON</span>
+        <span>JSONをインポート</span>
         <input
           type="file"
           accept="application/json"

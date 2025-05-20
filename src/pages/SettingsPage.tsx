@@ -14,7 +14,7 @@ export default function SettingsPage() {
   return (
     <form className="space-y-4">
       <label className="block space-y-1">
-        <span>Notify minutes before</span>
+        <span>何分前に通知</span>
         <input
           type="number"
           className="border rounded px-2 py-1 w-full"
@@ -23,7 +23,7 @@ export default function SettingsPage() {
         />
       </label>
       <label className="block space-y-1">
-        <span>Theme</span>
+        <span>テーマ</span>
         <select
           className="border rounded px-2 py-1 w-full"
           value={settings.theme}
@@ -31,12 +31,12 @@ export default function SettingsPage() {
             update('theme', e.target.value as 'light' | 'dark')
           }
         >
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
+          <option value="light">ライト</option>
+          <option value="dark">ダーク</option>
         </select>
       </label>
       <label className="block space-y-1">
-        <span>Snooze minutes</span>
+        <span>スヌーズ間隔（分）</span>
         <input
           type="number"
           className="border rounded px-2 py-1 w-full"

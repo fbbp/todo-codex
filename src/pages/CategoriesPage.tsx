@@ -29,7 +29,7 @@ function CategoryForm({ initial, onSave, onCancel }: FormProps) {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
+          placeholder="名前"
           className="border rounded px-2 py-1"
         />
       </div>
@@ -43,7 +43,7 @@ function CategoryForm({ initial, onSave, onCancel }: FormProps) {
         type="submit"
         className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white"
       >
-        Save
+        保存
       </button>
       {onCancel && (
         <button
@@ -51,7 +51,7 @@ function CategoryForm({ initial, onSave, onCancel }: FormProps) {
           onClick={onCancel}
           className="px-2 py-1 text-sm"
         >
-          Cancel
+          キャンセル
         </button>
       )}
     </form>
@@ -113,7 +113,7 @@ export default function CategoriesPage() {
                   onClick={() => setEditing(c.id)}
                   className="text-sm text-primary"
                 >
-                  Edit
+                  編集
                 </button>
               </>
             )}
