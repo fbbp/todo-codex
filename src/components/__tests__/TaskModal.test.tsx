@@ -22,6 +22,6 @@ describe('TaskModal', () => {
         </Routes>
       </MemoryRouter>
     );
-    expect(html).toContain('Save');
+    expect(html).toContain('保存');
   });
 });

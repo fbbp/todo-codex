@@ -32,10 +32,10 @@ export default function PwaPrompt() {
     <>
       {(offlineReady || needRefresh) && (
         <div className="fixed bottom-4 right-4 bg-white dark:bg-slate-800 shadow p-2 flex gap-2">
-          {offlineReady && <span>Offline ready</span>}
+          {offlineReady && <span>オフライン対応完了</span>}
           {needRefresh && (
             <button type="button" onClick={() => updateServiceWorker(true)} className="underline focus-ring">
-              Update
+              更新
             </button>
           )}
         </div>
@@ -46,7 +46,7 @@ export default function PwaPrompt() {
           className="fixed bottom-4 left-4 bg-primary text-white px-3 py-1 rounded focus-ring"
           onClick={install}
         >
-          Install App
+          アプリをインストール
         </button>
       )}
     </>

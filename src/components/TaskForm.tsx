@@ -79,7 +79,7 @@ export function TaskForm({ task, onSaved }: Props) {
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Task title"
+        placeholder="タスク名"
         className="w-full border rounded px-2 py-1 focus-ring"
       />
       <input
@@ -93,7 +93,7 @@ export function TaskForm({ task, onSaved }: Props) {
         onChange={(e) => setCategory(e.target.value)}
         className="w-full border rounded px-2 py-1 focus-ring"
       >
-        <option value="">No category</option>
+        <option value="">カテゴリーなし</option>
         {categories.map((c) => (
           <option
             key={c.id}
@@ -110,7 +110,7 @@ export function TaskForm({ task, onSaved }: Props) {
       <input
         value={repeat}
         onChange={(e) => setRepeat(e.target.value)}
-        placeholder="RRULE e.g. FREQ=DAILY;INTERVAL=1"
+        placeholder="RRULE 例: FREQ=DAILY;INTERVAL=1"
         className="w-full border rounded px-2 py-1 focus-ring"
       />
       {checklist.length > 0 && (
@@ -139,7 +139,7 @@ export function TaskForm({ task, onSaved }: Props) {
         <input
           value={subText}
           onChange={(e) => setSubText(e.target.value)}
-          placeholder="Add subtask"
+          placeholder="サブタスクを追加"
           className="flex-1 border rounded px-2 py-1 focus-ring"
         />
         <button
@@ -147,7 +147,7 @@ export function TaskForm({ task, onSaved }: Props) {
           onClick={addSubtask}
           className="rounded-full shadow px-4 py-1 font-semibold bg-primary text-white focus-ring"
         >
-          Add
+          追加
         </button>
       </div>
       <div className="flex justify-end">
@@ -155,7 +155,7 @@ export function TaskForm({ task, onSaved }: Props) {
           type="submit"
           className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white focus-ring"
         >
-          Save
+          保存
         </button>
       </div>
     </form>

@@ -13,7 +13,7 @@ vi.mock('virtual:pwa-register/react', () => ({
 describe('PwaPrompt', () => {
   it('renders offline and update notices', () => {
     const html = renderToString(<PwaPrompt />);
-    expect(html).toContain('Offline ready');
-    expect(html).toContain('Update');
+    expect(html).toContain('オフライン対応完了');
+    expect(html).toContain('更新');
   });
 });

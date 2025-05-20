@@ -19,7 +19,7 @@ export function NextTask({ tasks: override }: Props = {}) {
     .sort((a, b) => (a.dueAt ?? 0) - (b.dueAt ?? 0))[0];
 
   if (!next) {
-    return <div className="text-slate-500">No upcoming tasks</div>;
+    return <div className="text-slate-500">今後のタスクはありません</div>;
   }
 
   return (

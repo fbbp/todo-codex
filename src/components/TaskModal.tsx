@@ -45,11 +45,11 @@ export default function TaskModal() {
               }}
               className="px-3 py-1 text-danger focus-ring"
             >
-              Delete
+              削除
             </button>
           )}
           <button type="button" onClick={() => navigate(-1)} className="px-3 py-1 rounded focus-ring ml-auto">
-            Cancel
+            キャンセル
           </button>
         </div>
       </div>

@@ -20,7 +20,7 @@ vi.mock('../../store/useSettings', () => ({
 describe('BackupControls', () => {
   it('renders export and import controls', () => {
     const html = renderToString(<BackupControls />);
-    expect(html).toContain('Export JSON');
-    expect(html).toContain('Import JSON');
+    expect(html).toContain('JSONをエクスポート');
+    expect(html).toContain('JSONをインポート');
   });
 });
