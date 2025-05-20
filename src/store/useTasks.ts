@@ -18,6 +18,7 @@ export interface TaskStore {
   add: (draft: TaskDraft) => Promise<string>;
   update: (id: string, patch: Partial<TaskDraft>) => Promise<void>;
   complete: (id: string) => Promise<void>;
+  remove: (id: string) => Promise<void>;
 }
 
 function scheduleReminder(task: Task) {
@@ -102,5 +103,10 @@ export const useTasks = create<TaskStore>((set, get) => ({
       set({ tasks: [...get().tasks, next] });
       scheduleReminder(next);
     }
+  },
+
+  async remove(id) {
+    await db.tasks.delete(id);
+    set({ tasks: get().tasks.filter((t) => t.id !== id) });
   },
 }));
