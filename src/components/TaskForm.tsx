@@ -79,18 +79,18 @@ export function TaskForm({ task, onSaved }: Props) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Task title"
-        className="w-full border rounded px-2 py-1"
+        className="w-full border rounded px-2 py-1 focus-ring"
       />
       <input
         type="datetime-local"
         value={due}
         onChange={(e) => setDue(e.target.value)}
-        className="w-full border rounded px-2 py-1"
+        className="w-full border rounded px-2 py-1 focus-ring"
       />
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="w-full border rounded px-2 py-1"
+        className="w-full border rounded px-2 py-1 focus-ring"
       >
         <option value="">No category</option>
         {categories.map((c) => (
@@ -103,7 +103,7 @@ export function TaskForm({ task, onSaved }: Props) {
         value={repeat}
         onChange={(e) => setRepeat(e.target.value)}
         placeholder="RRULE e.g. FREQ=DAILY;INTERVAL=1"
-        className="w-full border rounded px-2 py-1"
+        className="w-full border rounded px-2 py-1 focus-ring"
       />
       {checklist.length > 0 && (
         <ul className="space-y-1">
@@ -113,12 +113,13 @@ export function TaskForm({ task, onSaved }: Props) {
                 type="checkbox"
                 checked={c.checked}
                 onChange={() => toggleSubtask(c.id)}
+                className="focus-ring"
               />
               <span className={c.checked ? 'line-through text-slate-500' : ''}>{c.text}</span>
               <button
                 type="button"
                 onClick={() => removeSubtask(c.id)}
-                className="text-danger text-sm"
+                className="text-danger text-sm focus-ring"
               >
                 x
               </button>
@@ -131,12 +132,12 @@ export function TaskForm({ task, onSaved }: Props) {
           value={subText}
           onChange={(e) => setSubText(e.target.value)}
           placeholder="Add subtask"
-          className="flex-1 border rounded px-2 py-1"
+          className="flex-1 border rounded px-2 py-1 focus-ring"
         />
         <button
           type="button"
           onClick={addSubtask}
-          className="rounded-full shadow px-4 py-1 font-semibold bg-primary text-white"
+          className="rounded-full shadow px-4 py-1 font-semibold bg-primary text-white focus-ring"
         >
           Add
         </button>
@@ -144,7 +145,7 @@ export function TaskForm({ task, onSaved }: Props) {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white"
+          className="rounded-full shadow px-4 py-2 font-semibold bg-primary text-white focus-ring"
         >
           Save
         </button>

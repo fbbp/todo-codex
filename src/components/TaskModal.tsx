@@ -18,12 +18,24 @@ export default function TaskModal() {
 
   const task = id ? tasks.find((t) => t.id === id) : undefined;
 
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        navigate(-1);
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [navigate]);
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
       <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl space-y-2 w-80">
         <TaskForm task={task} onSaved={() => navigate(-1)} />
         <div className="flex justify-end">
-          <button type="button" onClick={() => navigate(-1)} className="px-3 py-1 rounded">
+          <button type="button" onClick={() => navigate(-1)} className="px-3 py-1 rounded focus-ring">
             Cancel
           </button>
         </div>
