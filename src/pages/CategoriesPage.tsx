@@ -93,7 +93,7 @@ export default function CategoriesPage() {
             onDragStart={() => setDragging(c.id)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={() => handleDrop(c.id)}
-            className="rounded-2xl p-4 shadow-sm bg-white flex items-center gap-2"
+            className="rounded-2xl p-4 shadow-sm bg-white dark:bg-slate-800 flex items-center gap-2"
           >
             {editing === c.id ? (
               <CategoryForm
