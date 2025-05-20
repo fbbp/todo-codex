@@ -24,7 +24,7 @@ describe('useSettings store', () => {
     useSettings.setState({
       settings: {
         notifyBeforeMin: 10,
-        theme: 'light',
+        theme: 'dark',
         snoozeMin: 5,
       },
     });

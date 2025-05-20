@@ -15,7 +15,7 @@ export interface SettingsStore {
 
 const DEFAULT_SETTINGS: Settings = {
   notifyBeforeMin: 10,
-  theme: 'light',
+  theme: 'dark',
   snoozeMin: 5,
 };
 

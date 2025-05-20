@@ -21,6 +21,10 @@
     background-color: var(--bg);
     color: var(--text);
   }
+  .dark input,
+  .dark select {
+    color: #000;
+  }
 }
 
 @layer components {

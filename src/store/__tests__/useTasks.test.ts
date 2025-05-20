@@ -63,7 +63,7 @@ describe('useTasks store', () => {
     });
 
     useSettings.setState({
-      settings: { notifyBeforeMin: 1, theme: 'light', snoozeMin: 5 },
+      settings: { notifyBeforeMin: 1, theme: 'dark', snoozeMin: 5 },
     });
 
     const draft = {
