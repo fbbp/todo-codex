@@ -5,15 +5,14 @@ describe('registerShortcuts', () => {
   it('calls callback on n key', () => {
     const cb = vi.fn();
     const events: Record<string, (e: KeyboardEvent) => void> = {};
+    const add = vi.fn<(t: string, h: (e: KeyboardEvent) => void) => void>((t, h) => {
+      events[t] = h;
+    });
+    const remove = vi.fn();
     const win = {
-      addEventListener: vi.fn((t: string, h: (e: KeyboardEvent) => void) => {
-        events[t] = h;
-      }),
-      removeEventListener: vi.fn(),
-    } as unknown as Pick<
-      Window,
-      'addEventListener' | 'removeEventListener'
-    >;
+      addEventListener: add as unknown as Window['addEventListener'],
+      removeEventListener: remove as unknown as Window['removeEventListener'],
+    };
     const cleanup = registerShortcuts(cb, win);
     events['keydown']?.({
       key: 'n',
@@ -30,15 +29,14 @@ describe('registerShortcuts', () => {
   it('ignores events from input', () => {
     const cb = vi.fn();
     const events: Record<string, (e: KeyboardEvent) => void> = {};
+    const add = vi.fn<(t: string, h: (e: KeyboardEvent) => void) => void>((t, h) => {
+      events[t] = h;
+    });
+    const remove = vi.fn();
     const win = {
-      addEventListener: vi.fn((t: string, h: (e: KeyboardEvent) => void) => {
-        events[t] = h;
-      }),
-      removeEventListener: vi.fn(),
-    } as unknown as Pick<
-      Window,
-      'addEventListener' | 'removeEventListener'
-    >;
+      addEventListener: add as unknown as Window['addEventListener'],
+      removeEventListener: remove as unknown as Window['removeEventListener'],
+    };
     registerShortcuts(cb, win);
     events['keydown']?.({
       key: 'n',
